@@ -1,4 +1,5 @@
 ## Testing dbt project: `jaffle_shop`
+> **NOTE:** this is a fork of the [official repo](https://github.com/dbt-labs/jaffle_shop) with the only difference being the addition of some dockerfiles to make running this project on a local postres db a bit easier. If you don't need/want that you'd probably be better served by the official repo. 
 
 `jaffle_shop` is a fictional ecommerce store. This dbt project transforms raw data from an app database into a customers and orders model ready for analytics.
 
@@ -66,6 +67,30 @@ $ dbt docs generate
 ```bash
 $ dbt docs serve
 ```
+
+### Local Postgres via Docker
+If you have [Docker](https://docs.docker.com/) installed already, you can use this command to start up a local db:
+```bash
+$ docker compose -f db-docker-setup/docker-compose.yml up --build
+```
+You'll know that the db is ready when you see something like 
+```
+LOG:  database system is ready to accept connections
+```
+At this point you can start a new terminal session (leave this one running) and go back to step 3 above. 
+
+The credentials for your local database are:
+```
+host: localhost
+port: 5432
+user: dbt
+pass: dbt
+```
+After you're done with your local database, you can shut it down by running
+```bash
+$ docker compose -f db-docker-setup/docker-compose.yml down
+```
+
 
 ### What is a jaffle?
 A jaffle is a toasted sandwich with crimped, sealed edges. Invented in Bondi in 1949, the humble jaffle is an Australian classic. The sealed edges allow jaffle-eaters to enjoy liquid fillings inside the sandwich, which reach temperatures close to the core of the earth during cooking. Often consumed at home after a night out, the most classic filling is tinned spaghetti, while my personal favourite is leftover beef stew with melted cheese.
